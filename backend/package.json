@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "rimraf dist && copyfiles -u 1 \"src/**/*\" dist",
+    "build": "rm -rf dist && cp -r src/* dist/",
     "dev": "nodemon src/index.js",
     "start": "node src/index.js"
   },
