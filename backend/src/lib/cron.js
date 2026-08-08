@@ -3,7 +3,7 @@ const { CronJob } = pkg;
 import http from "node:http";
 import https from "node:https";
 
-const job = new Cronjob("*/14 * * * *", function ()  {
+const job = new CronJob("*/14 * * * *", function ()  {
     const base = process.env.FRONTEND_URL;
     if (!base) return;
     const url = new URL("/health", base).href;
