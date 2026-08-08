@@ -1,4 +1,5 @@
-import { Cronjob } from "cron";
+import pkg from "cron";
+const { CronJob } = pkg;
 import http from "node:http";
 import https from "node:https";
 
