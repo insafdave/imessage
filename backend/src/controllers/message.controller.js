@@ -1,4 +1,5 @@
-import { uploadChatMedia } from "../lib/imagekit.js";
+import { hasImageKitConfig, uploadChatMedia } from "../lib/imagekit.js";
+import { getReceiverSocketId } from "../lib/socket.js";
 import { upload } from "../middleware/upload.middleware.js";
 import User from "../models/User.js";
 import Message from "../models/message.js";
@@ -91,6 +92,11 @@ export async function sendMessage(req, res) {
         });
 
         await newMessage.save();
+
+        const receiverSocketId = getReceiverSocketId(receiverId);
+        if(receiverSocketId){
+            io.to(receiverSocketId).emit("newMessage", newMessage); 
+        }
 
         res.status(201).json(newMessage);
 
