@@ -6,7 +6,8 @@
   "scripts": {
     "build": "rm -rf dist && mkdir dist && cp -r src/* dist/",
     "dev": "nodemon src/index.js",
-    "start": "node src/index.js"
+    "start": "node src/index.js",
+    "db:seed":"node src/seeds/user.seed.js"
   },
   "keywords": [],
   "author": "",
