@@ -5,11 +5,15 @@ import { useAuthStore } from "../store/useAuthStore";
 
 // John Doe -> JD
 export function getInitials(name) {
-  return name
-    .split(" ")
+  if (!name) return "?";
+
+  return String (name)
+    .trim()
+    .split(/\s+/)
     .filter(Boolean)
     .map((namePart) => namePart[0])
-    .join("");
+    .join("")
+    .toUpperCase();
 }
 
 // mapUserToConversation is an adapter — it converts the raw backend shapes (a user document + an array of message documents) into the clean view-model that the chat UI components expect to render.
