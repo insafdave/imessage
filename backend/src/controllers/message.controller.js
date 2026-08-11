@@ -1,12 +1,12 @@
 import { hasImageKitConfig, uploadChatMedia } from "../lib/imagekit.js";
-import { getReceiverSocketId } from "../lib/socket.js";
+import { getReceiverSocketId, io} from "../lib/socket.js";
 import { upload } from "../middleware/upload.middleware.js";
 import User from "../models/User.js";
 import Message from "../models/message.js";
 
 export async function getUserForSidebar(req, res) {
     try {
-        const loggedInUser = req.user._id;
+        const loggedInUserId = req.user._id;
 
         const filteredUsers = await User.find({ _id: {$ne: loggedInUserId}}).select("-clerkId");
 
