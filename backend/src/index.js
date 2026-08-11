@@ -17,9 +17,9 @@ import job from "./lib/cron.js";
 import clerkWebhook from "./webhooks/clerk.webhook.js";
 import authRoutes from "./routes/auth.route.js";
 import messageRoutes from "./routes/message.route.js";
-import { server } from "./lib/socket.js";
+import { app, server } from "./lib/socket.js";
 
-const app = express();
+
 const PORT = process.env.PORT;
 const FRONTEND_URL = process.env.FRONTEND_URL;
 
@@ -29,15 +29,15 @@ app.use(cors({origin:FRONTEND_URL, credentials:true}));
 app.use(express.json());
 app.use(clerkMiddleware());
 
-
+app.get("/health", (req,res) => {
+    res.status(200).json({ ok: true });
+});
 
 app.use("/api/auth",authRoutes);
 app.use("/api/messages",messageRoutes);
 app.use("/api/webhooks/clerk", express.raw({ type: "application/json" }), clerkWebhook);
 
-app.get("/health", (req,res) => {
-    res.status(200).json({ ok: true });
-});
+
 
 
 if(fs.existsSync(publicDir)) {
